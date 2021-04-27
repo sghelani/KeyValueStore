@@ -1,9 +1,9 @@
 import bisect
-import Node
-import InternalNode
+from Node import Node
+from InternalNode import InternalNode
 
 
-class LeafNode(Node.Node):
+class LeafNode(Node):
 
     def __init__(self, keys=None, values=None, parent=None, next_node=None):
         super().__init__(keys, parent)
@@ -15,11 +15,6 @@ class LeafNode(Node.Node):
         self.insert_key(index, key)
         self.values.insert(index, value)
         return index
-
-    def split(self):
-        if self.parent:
-            return self._split_with_parent()
-        return self._split_without_parent()
 
     def _split_node(self):
         split_index = len(self) // 2
@@ -38,8 +33,7 @@ class LeafNode(Node.Node):
 
     def _split_without_parent(self):
         key_to_move_up, right_node = self._split_node()
-        parent_node = InternalNode.InternalNode([key_to_move_up],
-                                                [self, right_node])
+        parent_node = InternalNode([key_to_move_up], [self, right_node])
 
         self.parent, right_node.parent = parent_node, parent_node
 

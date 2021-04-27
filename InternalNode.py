@@ -1,22 +1,14 @@
-import Node
+from Node import Node
 
 
-class InternalNode(Node.Node):
+class InternalNode(Node):
 
     def __init__(self, keys=None, children=None, parent=None):
         super().__init__(keys, parent)
         self.children = children
 
-    def insert_key(self, index, key):
-        self.keys.insert(index, key)
-
     def insert_child(self, index, child):
         self.children.insert(index, child)
-
-    def split(self):
-        if self.parent:
-            return self._split_with_parent()
-        return self._split_without_parent()
 
     def _split_node(self):
         split_index = len(self) // 2
@@ -57,5 +49,3 @@ class InternalNode(Node.Node):
     @staticmethod
     def is_leaf_node():
         return False
-
-
